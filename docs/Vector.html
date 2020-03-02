@@ -31,7 +31,7 @@
         <section>
             <h2>Constructors</h2>
             <pre><code class="cpp">Vector(int dim)</code></pre>
-            <pre><code class="cpp">Vector(std::initializer_list<double> data)</code></pre>
+            <pre><code class="cpp">Vector(std::initializer_list&ltdouble&gt data)</code></pre>
         </section>
 
         <section>
@@ -39,6 +39,16 @@
             <pre><code class="cpp">int dim() const</code></pre>
             <pre><code class="cpp">double norm() const</code></pre>
             <pre><code class="cpp">Vector normalize() const</code></pre>
+            <pre><code class="cpp">double sum() const </code></pre>
+            <pre><code class="cpp">double mean() const </code></pre>
+            <pre><code class="cpp">double min() const </code></pre>
+            <pre><code class="cpp">double max() const </code></pre>
+            <pre><code class="cpp">int argmin() const </code></pre>
+            <pre><code class="cpp">int argmax() const </code></pre>
+            <pre><code class="cpp">Vector map(std::function&ltdouble(double)&gt f) const</code></pre>
+            <pre><code class="cpp">Vector reduce(std::function&ltdouble(double, double)&gt f, double i) const</code></pre>
+
+
         </section>
 
         <section>
@@ -71,6 +81,7 @@
             <pre><code class="cpp">Vector operator*(double b) const</code></pre>
             <pre><code class="cpp">Vector operator/(const Vector &b) const</code></pre>
             <pre><code class="cpp">Vector operator/(double b) const</code></pre>
+            <pre><code class="cpp">std::ostream& operator<<(std::ostream &os, const Vector &v)</code></pre>
         </section>
 
 
