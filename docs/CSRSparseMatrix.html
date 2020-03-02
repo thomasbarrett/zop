@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/master.css">
+    <link rel="stylesheet" href="css/highlight.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/cpp.min.js"></script>
+    <script>
+        hljs.initHighlightingOnLoad();
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1><b>zop</b><i>a simple vector processing library</i></h1>
+    </header>
+
+    <main>
+
+        <section>
+            <h1>CSRSparseMatrix</h1>
+            <p>
+                The CSRSparseMatrix class defines a 'compressed-sparse-row' matrix implementation. The CSRSparseMatrix implementation is especially useful for matrix-vector multiplication.
+            </p>
+        </section>
+
+        <section>
+            <h2>Constructors</h2>
+            <pre><code class="cpp">CSRSparseMatrix(int nRows, int nCols)</code></pre>
+            <pre><code class="cpp"> CSRSparseMatrix(const DOKSparseMatrix &M)</code></pre>
+        </section>
+
+        <section>
+            <h2>Instance Methods</h2>
+            <pre><code class="cpp">int nRows() const</code></pre>
+            <pre><code class="cpp">int nCols() const</code></pre>
+            <pre><code class="cpp">CSRSparseMatrix transposed() const</code></pre>
+            <pre><code class="cpp">double getEntry(int i, int j)</code></pre>
+        </section>
+
+        <section>
+            <h2>Operator Overloads</h2>
+            <pre><code class="cpp">Vector operator*(const Vector &v)</code></pre>
+            <pre><code class="cpp">CSRSparseMatrix operator*(const CSRSparseMatrix &A, const CSRSparseMatrix &B)</code></pre>
+        </section>
+
+
+    </main>
+
+
+    <nav>
+        <section>
+            <h1>Tutorials</h1>
+            <ul>
+                <li><a href="Installation.html">Installation</a></li>
+                <li><a href="GettingStarted.html">Getting Started</a></li>
+            </ul>
+        </section>
+        <section>
+            <h1>Classes</h1>
+            <ul>
+                <li><a href="Vector.html">Vector<a></a></li>
+                <li><a href="DenseMatrix.html">DenseMatrix</a></li>
+                <li><a href="DOKSparseMatrix.html">DOKSparseMatrix</a></li>
+                <li><a href="CSRSparseMatrix.html">CSRSparseMatrix</a></li>
+            </ul>
+        </section>
+    </nav>
+
+</body>
+
+</html>
