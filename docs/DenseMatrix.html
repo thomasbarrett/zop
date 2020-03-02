@@ -48,6 +48,11 @@
         <section>
             <h2>Class Methods</h2>
             <pre><code class="cpp">static DenseMatrix Identity(int rows, int cols)</code></pre>
+            <pre><code class="cpp">static DenseMatrix AffineScale(double r)</code></pre>
+            <pre><code class="cpp">static DenseMatrix AffineTranslation(double x, double y, double z)</code></pre>
+            <pre><code class="cpp">static DenseMatrix AffineRotationX(double r)</code></pre>
+            <pre><code class="cpp">static DenseMatrix AffineRotationY(double r)</code></pre>
+            <pre><code class="cpp">static DenseMatrix AffineRotationZ(double r)</code></pre>
             <pre><code class="cpp">static DenseMatrix Cholesky(const DenseMatrix &A)</code></pre>
             <pre><code class="cpp">static std::pair<DenseMatrix, DenseMatrix> LU(const DenseMatrix &a)</code></pre>
         </section>

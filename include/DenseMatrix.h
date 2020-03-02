@@ -125,6 +125,55 @@ public:
         return mat;
     }
 
+    static DenseMatrix AffineScale(double r) {
+        DenseMatrix mat = DenseMatrix::Identity(4, 4);
+        for (int i = 0; i < 3; i++) {
+            mat[i][i] = r;
+        }
+        return mat;
+    }
+
+    static DenseMatrix AffineTranslation(double x, double y, double z) {
+        DenseMatrix mat = DenseMatrix::Identity(4, 4);
+        mat[0][3] = x;
+        mat[1][3] = y;
+        mat[2][3] = z;
+        return mat;
+    }
+
+    static DenseMatrix AffineRotationX(double r) {
+        DenseMatrix mat = DenseMatrix::Identity(4, 4);
+        double c = cos(r);
+        double s = sin(r);
+        mat[1][1] = c;
+        mat[1][2] = -s;
+        mat[2][1] = s;
+        mat[2][2] = c;
+        return mat;
+    }
+
+    static DenseMatrix AffineRotationY(double r) {
+        DenseMatrix mat = DenseMatrix::Identity(4, 4);
+        double c = cos(r);
+        double s = sin(r);
+        mat[0][0] = c;
+        mat[0][2] = s;
+        mat[2][0] = -s;
+        mat[2][2] = c;
+        return mat;
+    }
+
+    static DenseMatrix AffineRotationZ(double r) {
+        DenseMatrix mat = DenseMatrix::Identity(4, 4);
+        double c = cos(r);
+        double s = sin(r);
+        mat[0][0] = c;
+        mat[0][1] = -s;
+        mat[1][0] = s;
+        mat[1][1] = c;
+        return mat;
+    }
+
     static DenseMatrix Cholesky(const DenseMatrix &A) {
         DenseMatrix L{A.nRows(), A.nCols()};
 
