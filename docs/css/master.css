@@ -17,7 +17,7 @@ body {
 }
 
 main {
-    max-width: 800px;
+    width: 600px;
     margin: auto;
     padding: 0 24px;
 }
@@ -58,4 +58,9 @@ p {
 
 section {
     margin: 50px 0;
+    width: 100%;
+}
+
+pre {
+    width: 100%;
 }

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/master.css">
+    <link rel="stylesheet" href="../css/highlight.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/cpp.min.js"></script>
+    <script>
+        hljs.initHighlightingOnLoad();
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1><b>zop</b><i>a simple vector processing library</i></h1>
+    </header>
+
+
+    <main>
+        <section>
+            <h1>DenseMatrix</h1>
+            <p>This is a dense matrix</p>
+        </section>
+
+        <section>
+            <h2>Instance Methods</h2>
+            <pre><code class="cpp">void DenseMatrix(int, int)</code></pre>
+            <pre><code class="cpp">void DenseMatrix(std::initializer_list&lt;std::initializer_list&lt;double&gt; &gt;)</code></pre>
+            <pre><code class="cpp">int nRows()</code></pre>
+            <pre><code class="cpp">int nCols()</code></pre>
+            <pre><code class="cpp">zap::DenseMatrix transposed()</code></pre>
+            <pre><code class="cpp">bool isLowerTriangular()</code></pre>
+            <pre><code class="cpp">bool isUpperTriangular()</code></pre>
+            <pre><code class="cpp">bool isSymmetric()</code></pre>
+            <pre><code class="cpp">zap::DenseMatrix minor(int)</code></pre>
+            <pre><code class="cpp">zap::DenseMatrix Identity(int, int)</code></pre>
+            <pre><code class="cpp">zap::DenseMatrix AffineScale(double)</code></pre>
+            <pre><code class="cpp">zap::DenseMatrix AffineTranslation(double, double, double)</code></pre>
+            <pre><code class="cpp">zap::DenseMatrix AffineRotationX(double)</code></pre>
+            <pre><code class="cpp">zap::DenseMatrix AffineRotationY(double)</code></pre>
+            <pre><code class="cpp">zap::DenseMatrix AffineRotationZ(double)</code></pre>
+            <pre><code class="cpp">zap::DenseMatrix Cholesky(const zap::DenseMatrix &amp;)</code></pre>
+            <pre><code class="cpp">std::pair&lt;DenseMatrix, DenseMatrix&gt; LU(const zap::DenseMatrix &amp;)</code></pre>
+            <pre><code class="cpp">double * operator[](int)</code></pre>
+            <pre><code class="cpp">const double * operator[](int)</code></pre>
+            
+        </section>
+
+    </main>
+
+    <nav>
+        <section>
+            <h1>Tutorials</h1>
+            <ul>
+                <li><a href="Installation.html">Installation</a></li>
+                <li><a href="GettingStarted.html">Getting Started</a></li>
+            </ul>
+        </section>
+        <section>
+            <h1>Classes</h1>
+            <ul>
+                <li><a href="DimensionMismatchException.html">DimensionMismatchException<a></a></li>
+                <li><a href="DOKSparseMatrix.html">DOKSparseMatrix<a></a></li>
+                <li><a href="CSRSparseMatrix.html">CSRSparseMatrix<a></a></li>
+                <li><a href="CSRSparseMatrix/Row.html">CSRSparseMatrix::Row<a></a></li>
+                <li><a href="DenseMatrix.html">DenseMatrix<a></a></li>
+                <li><a href="Vector.html">Vector<a></a></li>
+                
+            </ul>
+        </section>
+    </nav>
+</body>
+
+</html>

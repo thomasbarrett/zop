@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/master.css">
+    <link rel="stylesheet" href="../css/highlight.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/cpp.min.js"></script>
+    <script>
+        hljs.initHighlightingOnLoad();
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1><b>zop</b><i>a simple vector processing library</i></h1>
+    </header>
+
+
+    <main>
+        <section>
+            <h1>Vector</h1>
+            <p>None</p>
+        </section>
+
+        <section>
+            <h2>Instance Methods</h2>
+            <pre><code class="cpp">void Vector(int)</code></pre>
+            <pre><code class="cpp">void Vector(std::initializer_list&lt;double&gt;)</code></pre>
+            <pre><code class="cpp">int dim()</code></pre>
+            <pre><code class="cpp">double norm()</code></pre>
+            <pre><code class="cpp">zap::Vector normalize()</code></pre>
+            <pre><code class="cpp">zap::Vector map(std::function&lt;double (double)&gt;)</code></pre>
+            <pre><code class="cpp">zap::Vector reduce(std::function&lt;double (double, double)&gt;, double)</code></pre>
+            <pre><code class="cpp">int argmin()</code></pre>
+            <pre><code class="cpp">int argmax()</code></pre>
+            <pre><code class="cpp">int max()</code></pre>
+            <pre><code class="cpp">int min()</code></pre>
+            <pre><code class="cpp">double sum()</code></pre>
+            <pre><code class="cpp">double mean()</code></pre>
+            <pre><code class="cpp">double &amp; operator[](size_t)</code></pre>
+            <pre><code class="cpp">const double &amp; operator[](size_t)</code></pre>
+            <pre><code class="cpp">zap::Vector operator+(const zap::Vector &amp;)</code></pre>
+            <pre><code class="cpp">zap::Vector operator+(double)</code></pre>
+            <pre><code class="cpp">zap::Vector operator-(const zap::Vector &amp;)</code></pre>
+            <pre><code class="cpp">zap::Vector operator-(double)</code></pre>
+            <pre><code class="cpp">zap::Vector operator*(const zap::Vector &amp;)</code></pre>
+            <pre><code class="cpp">zap::Vector operator*(double)</code></pre>
+            <pre><code class="cpp">zap::Vector operator/(const zap::Vector &amp;)</code></pre>
+            <pre><code class="cpp">zap::Vector operator/(double)</code></pre>
+            <pre><code class="cpp">zap::Vector add(const zap::Vector &amp;, const zap::Vector &amp;)</code></pre>
+            <pre><code class="cpp">zap::Vector add(const zap::Vector &amp;, double)</code></pre>
+            <pre><code class="cpp">zap::Vector subtract(const zap::Vector &amp;, const zap::Vector &amp;)</code></pre>
+            <pre><code class="cpp">zap::Vector subtract(const zap::Vector &amp;, double)</code></pre>
+            <pre><code class="cpp">zap::Vector multiply(const zap::Vector &amp;, const zap::Vector &amp;)</code></pre>
+            <pre><code class="cpp">zap::Vector multiply(const zap::Vector &amp;, double)</code></pre>
+            <pre><code class="cpp">zap::Vector divide(const zap::Vector &amp;, const zap::Vector &amp;)</code></pre>
+            <pre><code class="cpp">zap::Vector divide(const zap::Vector &amp;, double)</code></pre>
+            <pre><code class="cpp">double dot(const zap::Vector &amp;, const zap::Vector &amp;)</code></pre>
+            <pre><code class="cpp">zap::Vector cross(const zap::Vector &amp;, const zap::Vector &amp;)</code></pre>
+            
+        </section>
+
+    </main>
+
+    <nav>
+        <section>
+            <h1>Tutorials</h1>
+            <ul>
+                <li><a href="Installation.html">Installation</a></li>
+                <li><a href="GettingStarted.html">Getting Started</a></li>
+            </ul>
+        </section>
+        <section>
+            <h1>Classes</h1>
+            <ul>
+                <li><a href="DimensionMismatchException.html">DimensionMismatchException<a></a></li>
+                <li><a href="DOKSparseMatrix.html">DOKSparseMatrix<a></a></li>
+                <li><a href="CSRSparseMatrix.html">CSRSparseMatrix<a></a></li>
+                <li><a href="CSRSparseMatrix/Row.html">CSRSparseMatrix::Row<a></a></li>
+                <li><a href="DenseMatrix.html">DenseMatrix<a></a></li>
+                <li><a href="Vector.html">Vector<a></a></li>
+                
+            </ul>
+        </section>
+    </nav>
+</body>
+
+</html>

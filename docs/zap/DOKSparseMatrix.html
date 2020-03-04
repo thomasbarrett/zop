@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/master.css">
+    <link rel="stylesheet" href="../css/highlight.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/cpp.min.js"></script>
+    <script>
+        hljs.initHighlightingOnLoad();
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1><b>zop</b><i>a simple vector processing library</i></h1>
+    </header>
+
+
+    <main>
+        <section>
+            <h1>DOKSparseMatrix</h1>
+            <p>None</p>
+        </section>
+
+        <section>
+            <h2>Instance Methods</h2>
+            <pre><code class="cpp">void DOKSparseMatrix(int, int)</code></pre>
+            <pre><code class="cpp">int nRows()</code></pre>
+            <pre><code class="cpp">int nCols()</code></pre>
+            <pre><code class="cpp">zap::DOKSparseMatrix transposed()</code></pre>
+            <pre><code class="cpp">void addEntry(int, int, double)</code></pre>
+            <pre><code class="cpp">double getEntry(int, int)</code></pre>
+            <pre><code class="cpp">zap::DOKSparseMatrix::const_iterator begin()</code></pre>
+            <pre><code class="cpp">zap::DOKSparseMatrix::const_iterator end()</code></pre>
+            
+        </section>
+
+    </main>
+
+    <nav>
+        <section>
+            <h1>Tutorials</h1>
+            <ul>
+                <li><a href="Installation.html">Installation</a></li>
+                <li><a href="GettingStarted.html">Getting Started</a></li>
+            </ul>
+        </section>
+        <section>
+            <h1>Classes</h1>
+            <ul>
+                <li><a href="DimensionMismatchException.html">DimensionMismatchException<a></a></li>
+                <li><a href="DOKSparseMatrix.html">DOKSparseMatrix<a></a></li>
+                <li><a href="CSRSparseMatrix.html">CSRSparseMatrix<a></a></li>
+                <li><a href="CSRSparseMatrix/Row.html">CSRSparseMatrix::Row<a></a></li>
+                <li><a href="DenseMatrix.html">DenseMatrix<a></a></li>
+                <li><a href="Vector.html">Vector<a></a></li>
+                
+            </ul>
+        </section>
+    </nav>
+</body>
+
+</html>
