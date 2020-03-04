@@ -10,6 +10,9 @@ $(shell mkdir -p obj)
 
 all: build/test
 
+doc:
+	docs/generate.py
+
 build/test: $(OBJS) $(TESTS)
 	$(CPP) $(CPPFLAGS) $^ -o $@ -lgtest
 
