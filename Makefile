@@ -1,5 +1,5 @@
 CPP = clang++
-CPPFLAGS = -Iinclude -std=c++17 -g -pedantic -Wall
+CPPFLAGS = -Iinclude -std=c++17 -g --pedantic -Wall
 SRCS = $(wildcard src/*.cpp)
 OBJS = $(SRCS:src/%.cpp=obj/%.o)
 

@@ -13,7 +13,7 @@
 
 #include <Vector.h>
 
-namespace loki {
+namespace zap {
 
 class DimensionMismatchException: public std::exception {
 public:

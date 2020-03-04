@@ -3,7 +3,7 @@
 #include <DenseMatrix.h>
 #include <random>
 
-using namespace loki;
+using namespace zap;
 
 DenseMatrix RandomMatrixFromSeed(int M, int N, int seed) {
     std::srand(seed);

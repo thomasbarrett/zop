@@ -15,9 +15,11 @@
 #include <initializer_list>
 #include <cassert>
 
-namespace loki {
+namespace zap {
 
-
+/**
+ * This is a dense matrix
+ */
 class DenseMatrix {
 private:
     int nRows_ = 0;
@@ -26,6 +28,7 @@ private:
 
 protected:
 public:
+
 
     DenseMatrix(int rows, int cols):
         nRows_{rows},

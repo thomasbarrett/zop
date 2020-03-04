@@ -1,7 +1,7 @@
 
 #include "gtest/gtest.h"
 #include <Vector.h>
-using namespace loki;
+using namespace zap;
 
 TEST(VectorTest, Constructor) {
     Vector v(5);

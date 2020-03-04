@@ -2,7 +2,7 @@
 
 #include <SparseMatrix.h>
 
-using namespace loki;
+using namespace zap;
 
 
 DOKSparseMatrix RandomDOKSparseMatrixFromSeed(int M, int N, double sparsity, int seed) {

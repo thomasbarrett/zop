@@ -4,16 +4,18 @@
 #include <vector>
 #include <functional>
 #include <cmath>
+#include <initializer_list>
+#include <iostream>
+#include <cassert>
 
-namespace loki {
+namespace zap {
 
 class Vector {
 private:
     std::vector<double> data_;
     int dim_ = 0;
-public:
 
-    //=--------------------------- Constructors ----------------------------=//
+public:
 
     Vector(int dim): dim_{dim} {
         data_.resize(dim);
@@ -29,8 +31,6 @@ public:
             i += 1;
         }
     }
-
-    //=------------------------- Instance Methods --------------------------=//
 
     int dim() const {
         return dim_;
