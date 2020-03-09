@@ -47,12 +47,12 @@ def find_methods(node, filename):
             if node.kind == clang.cindex.CursorKind.CXX_METHOD:
                 if node.access_specifier != clang.cindex.AccessSpecifier.PRIVATE:
                     if node.is_static_method():
-                        classes[fully_qualified(node.semantic_parent)]['methods'].append({
+                        classes[fully_qualified(node.semantic_parent)]['static_methods'].append({
                             'displayname': node.type.get_result().spelling + " " + node.displayname,
                             'comment': process_raw_comment(node.raw_comment),
                         })
                     else:
-                        classes[fully_qualified(node.semantic_parent)]['static_methods'].append({
+                        classes[fully_qualified(node.semantic_parent)]['methods'].append({
                             'displayname': node.type.get_result().spelling + " " + node.displayname,
                             'comment': process_raw_comment(node.raw_comment),
                         })
