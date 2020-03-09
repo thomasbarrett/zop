@@ -1,7 +1,7 @@
 
 #include "gtest/gtest.h"
 #include <Vector.h>
-using namespace zap;
+using namespace zop;
 
 TEST(VectorTest, Constructor) {
     Vector v(5);

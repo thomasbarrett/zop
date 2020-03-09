@@ -4,7 +4,7 @@
 
 #include <vector>
 
-namespace zap {
+namespace zop {
 
 template <typename T> class ndarray {
 private:

@@ -5,7 +5,7 @@
 #include <cmath>
 #include <Vector.h>
 
-namespace zap {
+namespace zop {
 
 class DimensionMismatchException: public std::exception {
 public:

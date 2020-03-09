@@ -15,7 +15,7 @@
 #include <Matrix.h>
 #include <Vector.h>
 
-namespace zap {
+namespace zop {
 
 
 class DOKSparseMatrix: public AbstractMatrix<DOKSparseMatrix>  {

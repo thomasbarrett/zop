@@ -2,7 +2,7 @@
 
 #include <SparseMatrix.h>
 
-using namespace zap;
+using namespace zop;
 
 
 DOKSparseMatrix RandomDOKSparseMatrixFromSeed(int M, int N, double sparsity, int seed) {

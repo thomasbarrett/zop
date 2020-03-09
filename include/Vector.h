@@ -8,7 +8,7 @@
 #include <iostream>
 #include <cassert>
 
-namespace zap {
+namespace zop {
 
 /**
  * This is a comment for my Vector class.

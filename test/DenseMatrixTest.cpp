@@ -3,7 +3,7 @@
 #include <DenseMatrix.h>
 #include <random>
 
-using namespace zap;
+using namespace zop;
 
 DenseMatrix RandomMatrixFromSeed(int M, int N, int seed) {
     std::srand(seed);

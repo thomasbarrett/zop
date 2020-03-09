@@ -15,7 +15,7 @@
 #include <cassert>
 #include <Vector.h>
 
-namespace zap {
+namespace zop {
 
 /**
  * This is a dense matrix
