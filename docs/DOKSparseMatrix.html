@@ -24,6 +24,13 @@
         <section>
             <h1>DOKSparseMatrix</h1>
             
+                <p>This class implements a dictionary-of-keys sparse matrix. Generally, this
+class should only be used to build more optimized sparse matrix
+representations. By storing all entries in a tree-map, the DOKSparseMatrix
+is highly optimized to add, modify, and remove entires. However, matrix
+multiplication with this class will be much slower than with alternative
+implementations such as a CSRSparseMatrix.</p>
+            
         </section>
 
         <section>
