@@ -121,7 +121,7 @@ if __name__ == "__main__":
     }, classes.keys()))
 
     for class_name in classes.keys():
-        html_name = f'docs/{"/".join(class_name.split("::"))}.html'
+        html_name = f'docs/{"/".join(class_name.split("::")[1:])}.html'
         ensure_dir(html_name)
         with open(html_name,'w') as file:
             template = env.get_template('class.html')
