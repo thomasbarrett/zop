@@ -132,11 +132,11 @@ public:
     
         Row(int a, int b, const CSRSparseMatrix *mat): a_{a}, b_{b}, mat_{mat} {}
 
-        struct iterator {
+        struct Iterator {
             int i = 0;
             const Row *row;
             void operator++() {i++; }
-            bool operator!=(const iterator &it) const { return i != it.i; }
+            bool operator!=(const Iterator &it) const { return i != it.i; }
             std::pair<int, double> operator*() const {
                 return {row->indices(i), row->values(i)};
             }
@@ -173,14 +173,14 @@ public:
         /**
          * Return an iterator to the start of the row.
          */
-        const iterator begin() const {
+        const Iterator begin() const {
             return {0, this};
         }
 
         /**
          * Return an iterator to the end of the row.
          */
-        const iterator end() const {
+        const Iterator end() const {
             return {count(), this};
         }
 
