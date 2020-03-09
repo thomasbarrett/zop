@@ -52,15 +52,6 @@ performed on a row.</p>
                 
             <pre><code class="cpp">int count()</code></pre>
                 
-            <pre><code class="cpp">double operator[](int)</code></pre>
-                
-                <div class="method-comment"><p>Returns the value at the ith column. If there is no non-zero entry
-in that column, then 0.0 is returned.</p>
-<p>Note that this is a O(log(N)) operation, and thus should only be
-used when absolutely necessary. For example, if no sparse optimized
-implementation is defined for a certain operation, this allows the
-dense algorithm to be used.</p></div>
-                
             <pre><code class="cpp">const zop::CSRSparseMatrix::Row::Iterator begin()</code></pre>
                 
                 <div class="method-comment"><p>Return an iterator to the start of the row.</p></div>
@@ -85,6 +76,20 @@ to the number of non-zero elements in the row.</p></div>
         </section>
         
 
+        
+        <section>
+            <h2>Operator Overloads</h2>
+            <pre><code class="cpp">double operator[](int)</code></pre>
+                
+                <div class="method-comment"><p>Returns the value at the ith column. If there is no non-zero entry
+in that column, then 0.0 is returned.</p>
+<p>Note that this is a O(log(N)) operation, and thus should only be
+used when absolutely necessary. For example, if no sparse optimized
+implementation is defined for a certain operation, this allows the
+dense algorithm to be used.</p></div>
+                
+            
+        </section>
         
 
     </main>

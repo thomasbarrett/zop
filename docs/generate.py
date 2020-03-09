@@ -51,6 +51,11 @@ def find_methods(node, filename):
                             'displayname': node.type.get_result().spelling + " " + node.displayname,
                             'comment': process_raw_comment(node.raw_comment),
                         })
+                    elif node.spelling.startswith('operator'):
+                        classes[fully_qualified(node.semantic_parent)]['operators'].append({
+                            'displayname': node.type.get_result().spelling + " " + node.displayname,
+                            'comment': process_raw_comment(node.raw_comment),
+                        })
                     else:
                         classes[fully_qualified(node.semantic_parent)]['methods'].append({
                             'displayname': node.type.get_result().spelling + " " + node.displayname,
