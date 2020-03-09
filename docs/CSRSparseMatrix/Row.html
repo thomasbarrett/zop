@@ -46,32 +46,32 @@ performed on a row.</p>
                 
             <pre><code class="cpp">double operator[](int)</code></pre>
                 
-                <p class="method-comment"><p>Returns the value at the ith column. If there is no non-zero entry
+                <div class="method-comment"><p>Returns the value at the ith column. If there is no non-zero entry
 in that column, then 0.0 is returned.</p>
 <p>Note that this is a O(log(N)) operation, and thus should only be
 used when absolutely necessary. For example, if no sparse optimized
 implementation is defined for a certain operation, this allows the
-dense algorithm to be used.</p></p>
+dense algorithm to be used.</p></div>
                 
             <pre><code class="cpp">const zop::CSRSparseMatrix::Row::iterator begin()</code></pre>
                 
-                <p class="method-comment"><p>Return an iterator to the start of the row.</p></p>
+                <div class="method-comment"><p>Return an iterator to the start of the row.</p></div>
                 
             <pre><code class="cpp">const zop::CSRSparseMatrix::Row::iterator end()</code></pre>
                 
-                <p class="method-comment"><p>Return an iterator to the end of the row.</p></p>
+                <div class="method-comment"><p>Return an iterator to the end of the row.</p></div>
                 
             <pre><code class="cpp">double dot(const zop::CSRSparseMatrix::Row &amp;)</code></pre>
                 
-                <p class="method-comment"><p>Return the dot product between two sparse rows.</p>
+                <div class="method-comment"><p>Return the dot product between two sparse rows.</p>
 <p>This operation is sparse optimized and runs in O(N) with respect
-to the number of non-zero elements in the rows.</p></p>
+to the number of non-zero elements in the rows.</p></div>
                 
             <pre><code class="cpp">double dot(const zop::Vector &amp;)</code></pre>
                 
-                <p class="method-comment"><p>Return the dot product between a sparse row and a dense vector.</p>
+                <div class="method-comment"><p>Return the dot product between a sparse row and a dense vector.</p>
 <p>This operation is sparse optimized and runs in O(N) with respect
-to the number of non-zero elements in the row.</p></p>
+to the number of non-zero elements in the row.</p></div>
                 
             
         </section>

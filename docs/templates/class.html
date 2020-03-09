@@ -33,7 +33,7 @@
             {% for method in current_class.methods -%}
                 <pre><code class="cpp">{{ method.displayname | escape }}</code></pre>
                 {% if method.comment is not none %}
-                <p class="method-comment">{{ method.comment | markdown }}</p>
+                <div class="method-comment">{{ method.comment | markdown }}</div>
                 {% endif %}
             {% endfor %}
         </section>
