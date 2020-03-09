@@ -18,7 +18,8 @@
 namespace zop {
 
 /**
- * This is a dense matrix
+ *  
+ * 
  */
 class DenseMatrix: public AbstractMatrix<DenseMatrix> {
 private:

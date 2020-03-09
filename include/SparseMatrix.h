@@ -184,10 +184,10 @@ public:
          * This operation is sparse optimized and runs in O(N) with respect
          * to the number of non-zero elements in the rows.
          */
-        static double dot(const Row &A, const Row &B) {
+        double dot(const Row &B) const {
             double acc = 0;
             int idx = 0;
-            for (auto [i, e]: A) {
+            for (auto [i, e]: *this) {
                 while (i > B.indices(idx) && idx < B.count()) {
                     idx += 1;
                 }
@@ -204,9 +204,9 @@ public:
          * This operation is sparse optimized and runs in O(N) with respect
          * to the number of non-zero elements in the row.
          */
-        static double dot(const Row &A, const Vector &B) {
+        double dot(const Vector &B) const {
             double acc = 0;
-            for (auto [i, e]: A) {
+            for (auto [i, e]: *this) {
                 acc += e * B[i];
             }
             return acc;

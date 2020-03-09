@@ -219,7 +219,7 @@ public:
         if (v.dim() != self->nCols()) throw DimensionMismatchException{};
         Vector res(v.dim());
         for (int i = 0; i < self->nRows(); i++) {
-           res[i] = Derived::Row::dot(self->row(i), v);
+           res[i] = self->row(i).dot(v);
         }
         return res;
     }
@@ -235,7 +235,7 @@ public:
         typename Derived::Builder res{self->nRows(), B.nCols()};
         for (int i = 0; i < self->nRows(); i++) {
             for (int j = 0; j < B_T.nRows(); j++) {
-                double v = Derived::Row::dot(self->row(i), B_T.row(j));
+                double v = self->row(i).dot(B_T.row(j));
                 if (v != 0) res.setEntry(i, j, v);
             }
         }

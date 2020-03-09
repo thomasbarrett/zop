@@ -43,11 +43,11 @@ public:
 
 
     double norm() const {
-        return sqrt(Vector::dot(*this, *this));
+        return sqrt(this->dot(*this));
     }
 
     Vector normalize() const {
-        return Vector::divide(*this, norm());
+        return (*this) / norm();
     }
 
     Vector map(std::function<double(double)> f) const {
@@ -194,56 +194,24 @@ public:
         return res;
     }
 
-    //=------------------------- Class Functions ---------------------------=//
-
-    static Vector add(const Vector &a, const Vector &b) {
-        return a + b;
-    }
-
-    static Vector add(const Vector &a, double b) {
-        return a + b;
-    }
-
-    static Vector subtract(const Vector &a, const Vector &b) {
-        return a - b;
-    }
-
-    static Vector subtract(const Vector &a, double b) {
-        return a - b;
-    }
-
-    static Vector multiply(const Vector &a, const Vector &b) {
-        return a * b;
-    }
-
-    static Vector multiply(const Vector &a, double b) {
-        return a * b;
-    }
-
-    static Vector divide(const Vector &a, const Vector &b) {
-        return a / b;
-    }
-
-    static Vector divide(const Vector &a, double b) {
-        return a / b;
-    }
-
-    static double dot(const Vector &a, const Vector &b) {
-        if (a.dim() != b.dim()) {
+    double dot(const Vector &b) const {
+        if (dim() != b.dim()) {
             throw std::runtime_error("dim a != dim b");
         }
         double res = 0.0;
-        for (int i = 0; i < a.dim(); i++) {
-            res += a[i] * b[i];
+        for (int i = 0; i < dim(); i++) {
+            res += (*this)[i] * b[i];
         }
         return res;
     }
 
-    static Vector cross(const Vector &a, const Vector &b) {
-        if (a.dim() != 3 || b.dim() != 3) {
+    Vector cross(const Vector &b) const {
+        if (dim() != 3 || b.dim() != 3) {
             throw std::runtime_error("dim a != dim b != 3");
         }
-        
+
+        const Vector &a = *this;
+
         return {
             a[1] * b[2] - a[2] * b[1],
             a[2] * b[0] - a[0] * b[2],
