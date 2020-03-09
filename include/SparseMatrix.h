@@ -132,6 +132,12 @@ public:
     
         Row(int a, int b, const CSRSparseMatrix *mat): a_{a}, b_{b}, mat_{mat} {}
 
+        /**
+         * This class implements the iterator interface for CSRSparseMatrix
+         * Rows. This class allows for easy iteration over the non-zero entries
+         * of a row. Dereferencing the iterator returns a column index and
+         * value.
+         */
         struct Iterator {
             int i = 0;
             const Row *row;
