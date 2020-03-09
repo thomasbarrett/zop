@@ -11,8 +11,9 @@
 namespace zop {
 
 /**
- * This is a comment for my Vector class.
- * 
+ * This class implements an n-dimensional mathmatical vector as well as common
+ * vector operations such as vector addition, dot product, cross product, and 
+ * normalization, and other various methods.
  */
 class Vector {
 private:

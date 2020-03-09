@@ -45,37 +45,42 @@ def find_methods(node, filename):
     if node.location.file:
         if node.location.file.name == filename:
             if node.kind == clang.cindex.CursorKind.CXX_METHOD:
-                classes[fully_qualified(node.semantic_parent)]['methods'].append({
-                    'displayname': node.type.get_result().spelling + " " + node.displayname,
-                    'comment': process_raw_comment(node.raw_comment),
-                })
+                if node.access_specifier == clang.cindex.AccessSpecifier.PUBLIC:
+                    classes[fully_qualified(node.semantic_parent)]['methods'].append({
+                        'displayname': node.type.get_result().spelling + " " + node.displayname,
+                        'comment': process_raw_comment(node.raw_comment),
+                    })
             elif node.kind == clang.cindex.CursorKind.CLASS_DECL:
-                classes[fully_qualified(node)] = {
-                    'displayname': node.displayname,
-                    'comment': process_raw_comment(node.raw_comment),
-                    'methods': []
-                }
+                if node.access_specifier == clang.cindex.AccessSpecifier.PUBLIC:
+                    classes[fully_qualified(node)] = {
+                        'displayname': node.displayname,
+                        'comment': process_raw_comment(node.raw_comment),
+                        'methods': []
+                    }
             elif node.kind == clang.cindex.CursorKind.CLASS_TEMPLATE:
-                classes[fully_qualified(node)] = {
-                    'displayname': node.displayname,
-                    'comment': process_raw_comment(node.raw_comment),
-                    'methods': []
-                }
+                if node.access_specifier == clang.cindex.AccessSpecifier.PUBLIC:
+                    classes[fully_qualified(node)] = {
+                        'displayname': node.displayname,
+                        'comment': process_raw_comment(node.raw_comment),
+                        'methods': []
+                    }
             elif node.kind == clang.cindex.CursorKind.STRUCT_DECL:
-                classes[fully_qualified(node)] = {
-                    'displayname': node.displayname,
-                    'comment': process_raw_comment(node.raw_comment),
-                    'methods': []
-                }
+                if node.access_specifier == clang.cindex.AccessSpecifier.PUBLIC:
+                    classes[fully_qualified(node)] = {
+                        'displayname': node.displayname,
+                        'comment': process_raw_comment(node.raw_comment),
+                        'methods': []
+                    }
             elif node.kind == clang.cindex.CursorKind.FUNCTION_DECL:
                 return_type = node.type.get_result().spelling
                 name = node.displayname
                 comment = node.raw_comment
             elif node.kind == clang.cindex.CursorKind.CONSTRUCTOR:
-                classes[fully_qualified(node.semantic_parent)]['methods'].append({
-                    'displayname': node.type.get_result().spelling + " " + node.displayname,
-                    'comment': process_raw_comment(node.raw_comment),
-                })
+                if node.access_specifier == clang.cindex.AccessSpecifier.PUBLIC:
+                    classes[fully_qualified(node.semantic_parent)]['methods'].append({
+                        'displayname': node.type.get_result().spelling + " " + node.displayname,
+                        'comment': process_raw_comment(node.raw_comment),
+                    })
 
     # Recurse for children of this node`
     for child in node.get_children():
