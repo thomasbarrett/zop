@@ -28,6 +28,7 @@
             {% endif %}
         </section>
 
+        {% if current_class.constructors | length > 0 %}
         <section>
             <h2>Constructors</h2>
             {% for method in current_class.constructors -%}
@@ -37,7 +38,9 @@
                 {% endif %}
             {% endfor %}
         </section>
+        {% endif %}
 
+        {% if current_class.static_methods | length > 0 %}
         <section>
             <h2>Class Functions</h2>
             {% for method in current_class.static_methods -%}
@@ -47,7 +50,9 @@
                 {% endif %}
             {% endfor %}
         </section>
+        {% endif %}
 
+        {% if current_class.methods | length > 0 %}
         <section>
             <h2>Instance Methods</h2>
             {% for method in current_class.methods -%}
@@ -57,7 +62,9 @@
                 {% endif %}
             {% endfor %}
         </section>
+        {% endif %}
 
+        {% if current_class.operators | length > 0 %}
         <section>
             <h2>Operator Overloads</h2>
             {% for method in current_class.operators -%}
@@ -67,6 +74,7 @@
                 {% endif %}
             {% endfor %}
         </section>
+        {% endif %}
 
     </main>
 
