@@ -41,6 +41,17 @@ def process_raw_comment(raw_comment):
         result.append(line.strip().strip('*').strip())
     return "\n".join(result)
 
+def find_base_classes(node):
+    lst = []
+    def find_base_classes_(node):
+        if node.kind == clang.cindex.CursorKind.CXX_BASE_SPECIFIER:
+            lst.append(node.type.get_declaration())
+        for child in node.get_children():
+            find_base_classes_(child)
+        return lst
+    find_base_classes_(node)
+    return lst
+
 def find_methods(node, filename):
     if node.location.file:
         if node.location.file.name == filename:
@@ -66,6 +77,7 @@ def find_methods(node, filename):
                     classes[fully_qualified(node)] = {
                         'displayname': node.displayname,
                         'comment': process_raw_comment(node.raw_comment),
+                        'base_classes': list(map(fully_qualified, find_base_classes(node))),
                         'constructors': [],
                         'static_methods': [],
                         'methods': [],
@@ -76,6 +88,7 @@ def find_methods(node, filename):
                     classes[fully_qualified(node)] = {
                         'displayname': node.displayname,
                         'comment': process_raw_comment(node.raw_comment),
+                        'base_classes': list(map(fully_qualified, find_base_classes(node))),
                         'constructors': [],
                         'static_methods': [],
                         'methods': [],
@@ -86,6 +99,7 @@ def find_methods(node, filename):
                     classes[fully_qualified(node)] = {
                         'displayname': node.displayname,
                         'comment': process_raw_comment(node.raw_comment),
+                        'base_classes': list(map(fully_qualified, find_base_classes(node))),
                         'constructors': [],
                         'static_methods': [],
                         'methods': [],
@@ -126,7 +140,7 @@ if __name__ == "__main__":
         ]
 
         include_path = include_path_linux
-        translation_unit = index.parse(file, args=['-std=c++17', *include_path, '-x', 'c++'])
+        translation_unit = index.parse(file, args=['-std=c++17', *include_path, '-x', 'c++'], options=clang.cindex.TranslationUnit.PARSE_SKIP_FUNCTION_BODIES)
 
         if (len(list(translation_unit.diagnostics)) > 0):
             for error in list(translation_unit.diagnostics):

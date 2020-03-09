@@ -28,6 +28,17 @@
             {% endif %}
         </section>
 
+        {% if current_class.base_classes | length > 0 %}
+        <section>
+            <h2>Base Classes</h2>
+            <ul>
+                {% for class in current_class.base_classes -%}
+                    <li>{{ class }}</li>
+                {% endfor %}
+            </ul>
+        </section>
+        {% endif %}
+
         {% if current_class.constructors | length > 0 %}
         <section>
             <h2>Constructors</h2>
