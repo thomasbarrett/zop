@@ -7,6 +7,14 @@
 
 namespace zop {
 
+/**
+ * This exception is thrown when a matrix operation is invalid due to the
+ * dimensions of the matrix. The exact meaning depends on the context
+ * For example, the hadamard product (element-wise multiplication) requires
+ * that matrix dimensions be identical, while a matrix product only requires
+ * that the left matrices number of columns is equivelant to the right matrices
+ * number of rows.
+ */
 class DimensionMismatchException: public std::exception {
 public:
     virtual const char* what() const throw() {
