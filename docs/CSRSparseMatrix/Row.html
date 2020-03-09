@@ -34,45 +34,45 @@ performed on a row.</p>
 
         <section>
             <h2>Instance Methods</h2>
-            
-                <pre><code class="cpp">int binary_search(const int *, int, int, int)</code></pre>
-            
-                <pre><code class="cpp">void Row(int, int, const zop::CSRSparseMatrix *)</code></pre>
-            
-                <pre><code class="cpp">double values(int)</code></pre>
-            
-                <pre><code class="cpp">int indices(int)</code></pre>
-            
-                <pre><code class="cpp">int count()</code></pre>
-            
-                    <p><p>Returns the value at the ith column. If there is no non-zero entry
+            <pre><code class="cpp">int binary_search(const int *, int, int, int)</code></pre>
+                
+            <pre><code class="cpp">void Row(int, int, const zop::CSRSparseMatrix *)</code></pre>
+                
+            <pre><code class="cpp">double values(int)</code></pre>
+                
+            <pre><code class="cpp">int indices(int)</code></pre>
+                
+            <pre><code class="cpp">int count()</code></pre>
+                
+            <pre><code class="cpp">double operator[](int)</code></pre>
+                
+                <p class="method-comment"><p>Returns the value at the ith column. If there is no non-zero entry
 in that column, then 0.0 is returned.</p>
 <p>Note that this is a O(log(N)) operation, and thus should only be
 used when absolutely necessary. For example, if no sparse optimized
 implementation is defined for a certain operation, this allows the
 dense algorithm to be used.</p></p>
                 
-                <pre><code class="cpp">double operator[](int)</code></pre>
-            
-                    <p><p>Return an iterator to the start of the row.</p></p>
+            <pre><code class="cpp">const zop::CSRSparseMatrix::Row::iterator begin()</code></pre>
                 
-                <pre><code class="cpp">const zop::CSRSparseMatrix::Row::iterator begin()</code></pre>
-            
-                    <p><p>Return an iterator to the end of the row.</p></p>
+                <p class="method-comment"><p>Return an iterator to the start of the row.</p></p>
                 
-                <pre><code class="cpp">const zop::CSRSparseMatrix::Row::iterator end()</code></pre>
-            
-                    <p><p>Return the dot product between two sparse rows.</p>
+            <pre><code class="cpp">const zop::CSRSparseMatrix::Row::iterator end()</code></pre>
+                
+                <p class="method-comment"><p>Return an iterator to the end of the row.</p></p>
+                
+            <pre><code class="cpp">double dot(const zop::CSRSparseMatrix::Row &amp;)</code></pre>
+                
+                <p class="method-comment"><p>Return the dot product between two sparse rows.</p>
 <p>This operation is sparse optimized and runs in O(N) with respect
 to the number of non-zero elements in the rows.</p></p>
                 
-                <pre><code class="cpp">double dot(const zop::CSRSparseMatrix::Row &amp;)</code></pre>
-            
-                    <p><p>Return the dot product between a sparse row and a dense vector.</p>
+            <pre><code class="cpp">double dot(const zop::Vector &amp;)</code></pre>
+                
+                <p class="method-comment"><p>Return the dot product between a sparse row and a dense vector.</p>
 <p>This operation is sparse optimized and runs in O(N) with respect
 to the number of non-zero elements in the row.</p></p>
                 
-                <pre><code class="cpp">double dot(const zop::Vector &amp;)</code></pre>
             
         </section>
 

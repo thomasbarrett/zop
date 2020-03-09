@@ -41,22 +41,22 @@ the index of the first non-zero value in each row.</p>
 
         <section>
             <h2>Instance Methods</h2>
-            
-                <pre><code class="cpp">void CSRSparseMatrix(const zop::DOKSparseMatrix &amp;)</code></pre>
-            
-                <pre><code class="cpp">int nRows()</code></pre>
-            
-                <pre><code class="cpp">int nCols()</code></pre>
-            
-                <pre><code class="cpp">double getEntry(int, int)</code></pre>
-            
-                    <p><p>Return a view to the ith row in the matrix.</p></p>
+            <pre><code class="cpp">void CSRSparseMatrix(const zop::DOKSparseMatrix &amp;)</code></pre>
                 
-                <pre><code class="cpp">zop::CSRSparseMatrix::Row row(int)</code></pre>
-            
-                    <p><p>Return the transpose of the original matrix.</p></p>
+            <pre><code class="cpp">int nRows()</code></pre>
                 
-                <pre><code class="cpp">zop::CSRSparseMatrix transposed()</code></pre>
+            <pre><code class="cpp">int nCols()</code></pre>
+                
+            <pre><code class="cpp">double getEntry(int, int)</code></pre>
+                
+            <pre><code class="cpp">zop::CSRSparseMatrix::Row row(int)</code></pre>
+                
+                <p class="method-comment"><p>Return a view to the ith row in the matrix.</p></p>
+                
+            <pre><code class="cpp">zop::CSRSparseMatrix transposed()</code></pre>
+                
+                <p class="method-comment"><p>Return the transpose of the original matrix.</p></p>
+                
             
         </section>
 

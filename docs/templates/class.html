@@ -31,10 +31,10 @@
         <section>
             <h2>Instance Methods</h2>
             {% for method in current_class.methods -%}
-                {% if method.comment is not none %}
-                    <p>{{ method.comment | markdown }}</p>
-                {% endif %}
                 <pre><code class="cpp">{{ method.displayname | escape }}</code></pre>
+                {% if method.comment is not none %}
+                <p class="method-comment">{{ method.comment | markdown }}</p>
+                {% endif %}
             {% endfor %}
         </section>
 
