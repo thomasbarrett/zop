@@ -45,27 +45,27 @@ def find_methods(node, filename):
     if node.location.file:
         if node.location.file.name == filename:
             if node.kind == clang.cindex.CursorKind.CXX_METHOD:
-                if node.access_specifier == clang.cindex.AccessSpecifier.PUBLIC:
+                if node.access_specifier != clang.cindex.AccessSpecifier.PRIVATE:
                     classes[fully_qualified(node.semantic_parent)]['methods'].append({
                         'displayname': node.type.get_result().spelling + " " + node.displayname,
                         'comment': process_raw_comment(node.raw_comment),
                     })
             elif node.kind == clang.cindex.CursorKind.CLASS_DECL:
-                if node.access_specifier == clang.cindex.AccessSpecifier.PUBLIC:
+                if node.access_specifier != clang.cindex.AccessSpecifier.PRIVATE:
                     classes[fully_qualified(node)] = {
                         'displayname': node.displayname,
                         'comment': process_raw_comment(node.raw_comment),
                         'methods': []
                     }
             elif node.kind == clang.cindex.CursorKind.CLASS_TEMPLATE:
-                if node.access_specifier == clang.cindex.AccessSpecifier.PUBLIC:
+                if node.access_specifier != clang.cindex.AccessSpecifier.PRIVATE:
                     classes[fully_qualified(node)] = {
                         'displayname': node.displayname,
                         'comment': process_raw_comment(node.raw_comment),
                         'methods': []
                     }
             elif node.kind == clang.cindex.CursorKind.STRUCT_DECL:
-                if node.access_specifier == clang.cindex.AccessSpecifier.PUBLIC:
+                if node.access_specifier != clang.cindex.AccessSpecifier.PRIVATE:
                     classes[fully_qualified(node)] = {
                         'displayname': node.displayname,
                         'comment': process_raw_comment(node.raw_comment),
@@ -76,7 +76,7 @@ def find_methods(node, filename):
                 name = node.displayname
                 comment = node.raw_comment
             elif node.kind == clang.cindex.CursorKind.CONSTRUCTOR:
-                if node.access_specifier == clang.cindex.AccessSpecifier.PUBLIC:
+                if node.access_specifier != clang.cindex.AccessSpecifier.PRIVATE:
                     classes[fully_qualified(node.semantic_parent)]['methods'].append({
                         'displayname': node.type.get_result().spelling + " " + node.displayname,
                         'comment': process_raw_comment(node.raw_comment),
