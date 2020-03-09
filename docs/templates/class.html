@@ -29,8 +29,38 @@
         </section>
 
         <section>
+            <h2>Constructors</h2>
+            {% for method in current_class.constructors -%}
+                <pre><code class="cpp">{{ method.displayname | escape }}</code></pre>
+                {% if method.comment is not none %}
+                <div class="method-comment">{{ method.comment | markdown }}</div>
+                {% endif %}
+            {% endfor %}
+        </section>
+
+        <section>
+            <h2>Class Functions</h2>
+            {% for method in current_class.static_methods -%}
+                <pre><code class="cpp">{{ method.displayname | escape }}</code></pre>
+                {% if method.comment is not none %}
+                <div class="method-comment">{{ method.comment | markdown }}</div>
+                {% endif %}
+            {% endfor %}
+        </section>
+
+        <section>
             <h2>Instance Methods</h2>
             {% for method in current_class.methods -%}
+                <pre><code class="cpp">{{ method.displayname | escape }}</code></pre>
+                {% if method.comment is not none %}
+                <div class="method-comment">{{ method.comment | markdown }}</div>
+                {% endif %}
+            {% endfor %}
+        </section>
+
+        <section>
+            <h2>Operator Overloads</h2>
+            {% for method in current_class.operators -%}
                 <pre><code class="cpp">{{ method.displayname | escape }}</code></pre>
                 {% if method.comment is not none %}
                 <div class="method-comment">{{ method.comment | markdown }}</div>

@@ -46,30 +46,45 @@ def find_methods(node, filename):
         if node.location.file.name == filename:
             if node.kind == clang.cindex.CursorKind.CXX_METHOD:
                 if node.access_specifier != clang.cindex.AccessSpecifier.PRIVATE:
-                    classes[fully_qualified(node.semantic_parent)]['methods'].append({
-                        'displayname': node.type.get_result().spelling + " " + node.displayname,
-                        'comment': process_raw_comment(node.raw_comment),
-                    })
+                    if node.is_static_method():
+                        classes[fully_qualified(node.semantic_parent)]['methods'].append({
+                            'displayname': node.type.get_result().spelling + " " + node.displayname,
+                            'comment': process_raw_comment(node.raw_comment),
+                        })
+                    else:
+                        classes[fully_qualified(node.semantic_parent)]['static_methods'].append({
+                            'displayname': node.type.get_result().spelling + " " + node.displayname,
+                            'comment': process_raw_comment(node.raw_comment),
+                        })
             elif node.kind == clang.cindex.CursorKind.CLASS_DECL:
                 if node.access_specifier != clang.cindex.AccessSpecifier.PRIVATE:
                     classes[fully_qualified(node)] = {
                         'displayname': node.displayname,
                         'comment': process_raw_comment(node.raw_comment),
-                        'methods': []
+                        'constructors': [],
+                        'static_methods': [],
+                        'methods': [],
+                        'operators': []
                     }
             elif node.kind == clang.cindex.CursorKind.CLASS_TEMPLATE:
                 if node.access_specifier != clang.cindex.AccessSpecifier.PRIVATE:
                     classes[fully_qualified(node)] = {
                         'displayname': node.displayname,
                         'comment': process_raw_comment(node.raw_comment),
-                        'methods': []
+                        'constructors': [],
+                        'static_methods': [],
+                        'methods': [],
+                        'operators': []
                     }
             elif node.kind == clang.cindex.CursorKind.STRUCT_DECL:
                 if node.access_specifier != clang.cindex.AccessSpecifier.PRIVATE:
                     classes[fully_qualified(node)] = {
                         'displayname': node.displayname,
                         'comment': process_raw_comment(node.raw_comment),
-                        'methods': []
+                        'constructors': [],
+                        'static_methods': [],
+                        'methods': [],
+                        'operators': []
                     }
             elif node.kind == clang.cindex.CursorKind.FUNCTION_DECL:
                 return_type = node.type.get_result().spelling
@@ -77,7 +92,7 @@ def find_methods(node, filename):
                 comment = node.raw_comment
             elif node.kind == clang.cindex.CursorKind.CONSTRUCTOR:
                 if node.access_specifier != clang.cindex.AccessSpecifier.PRIVATE:
-                    classes[fully_qualified(node.semantic_parent)]['methods'].append({
+                    classes[fully_qualified(node.semantic_parent)]['constructors'].append({
                         'displayname': node.type.get_result().spelling + " " + node.displayname,
                         'comment': process_raw_comment(node.raw_comment),
                     })
