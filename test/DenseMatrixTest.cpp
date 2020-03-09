@@ -11,7 +11,7 @@ DenseMatrix RandomMatrixFromSeed(int M, int N, int seed) {
     DenseMatrix mat{M, N};
     for (int i = 0; i < M; i++) {
         for (int j = 0; j < N; j++) {
-            mat[i][j] = (double) std::rand() / RAND_MAX - 0.5;
+            mat.setEntry(i, j, (double) std::rand() / RAND_MAX - 0.5);
         }
     }
     return mat;
@@ -28,7 +28,7 @@ TEST(DenseMatrixTest, Constructor) {
 
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < M; j++) {
-            ASSERT_EQ(A[i][j], 0);
+            ASSERT_EQ(A.getEntry(i, j), 0);
         }
     }
 }
@@ -49,7 +49,7 @@ TEST(DenseMatrixTest, Add) {
     
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < M; j++) {
-            ASSERT_EQ(C[i][j], A[i][j] + B[i][j]);
+            ASSERT_EQ(C.getEntry(i, j), A.getEntry(i, j) + B.getEntry(i, j));
         }
     }
 }
@@ -83,7 +83,7 @@ TEST(DenseMatrixTest, Transpose) {
 
     for (int i = 0; i < M; i++) {
         for (int j = 0; j < N; j++) {
-            ASSERT_EQ(A[i][j], A_T[j][i]);
+            ASSERT_EQ(A.getEntry(i, j), A_T.getEntry(j, i));
         }
     }
 }
@@ -137,7 +137,7 @@ TEST(DenseMatrixTest, Cholesky) {
         {-16.0, -43.0,  98.0}
     };
 
-    const DenseMatrix L = DenseMatrix::Cholesky(A);
+    const DenseMatrix L = A.cholesky();
     ASSERT_TRUE(L.isLowerTriangular());
     ASSERT_EQ(A, L * L.transposed());
 
@@ -148,7 +148,7 @@ TEST(DenseMatrixTest, Cholesky) {
         {10.0, -43.0,  98.0}
     };
 
-    ASSERT_ANY_THROW(DenseMatrix::Cholesky(B));
+    ASSERT_ANY_THROW(B.cholesky());
 
     // non-semi-postive-definite matrix
     const DenseMatrix C {
@@ -157,7 +157,7 @@ TEST(DenseMatrixTest, Cholesky) {
         {0.0,   0.0,   0.0}
     };
 
-    ASSERT_ANY_THROW(DenseMatrix::Cholesky(C));
+    ASSERT_ANY_THROW(C.cholesky());
 }
 
 
@@ -169,7 +169,7 @@ TEST(DenseMatrixTest, LU) {
         {3.0, 1.0, 1.0}
     };
 
-    const auto [L, U] = DenseMatrix::LU(A);
+    const auto [L, U] = A.LU();
     ASSERT_EQ(A, L * U);
 }
 

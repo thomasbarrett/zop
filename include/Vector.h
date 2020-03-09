@@ -10,6 +10,10 @@
 
 namespace zap {
 
+/**
+ * This is a comment for my Vector class.
+ * 
+ */
 class Vector {
 private:
     std::vector<double> data_;
@@ -17,6 +21,7 @@ private:
 
 public:
 
+    
     Vector(int dim): dim_{dim} {
         data_.resize(dim);
     }
@@ -35,6 +40,7 @@ public:
     int dim() const {
         return dim_;
     }
+
 
     double norm() const {
         return sqrt(Vector::dot(*this, *this));

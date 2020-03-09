@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../css/master.css">
-    <link rel="stylesheet" href="../css/highlight.css">
+    <link rel="stylesheet" href="/css/master.css">
+    <link rel="stylesheet" href="/css/highlight.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/cpp.min.js"></script>
     <script>
@@ -15,28 +15,48 @@
 </head>
 
 <body>
+
     <header>
         <h1><b>zop</b><i>a simple vector processing library</i></h1>
     </header>
 
-
     <main>
         <section>
             <h1>CSRSparseMatrix</h1>
-            <p>This class represents a sparse matrix in compressed sparse row format. This is optimal for matrix-vector multiplication. A CSR matrix representation stores the following information:</p>
+            
+                <p>This class represents a sparse matrix in compressed sparse row format.
+This is optimal for matrix-vector multiplication. A CSR matrix
+representation stores the following information:</p>
+<ol>
+<li>a vector of non-zero values</li>
+<li>a vector of column indices</li>
+<li>a vector of row start indices</li>
+</ol>
+<p>Note that the non-zero values and column indices are parallel arrays.
+Thus, the column of the ith non-zero value can be found at the ith
+position of the column vector. The vector of row-start indices stores
+the index of the first non-zero value in each row.</p>
+            
         </section>
 
         <section>
             <h2>Instance Methods</h2>
-            <pre><code class="cpp">std::pair&lt;int, int&gt; getRowIndices(int)</code></pre>
-            <pre><code class="cpp">zap::CSRSparseMatrix::Row row(int)</code></pre>
-            <pre><code class="cpp">void CSRSparseMatrix(int, int)</code></pre>
-            <pre><code class="cpp">void CSRSparseMatrix(const zap::DOKSparseMatrix &amp;)</code></pre>
-            <pre><code class="cpp">int nRows()</code></pre>
-            <pre><code class="cpp">int nCols()</code></pre>
-            <pre><code class="cpp">zap::CSRSparseMatrix transposed()</code></pre>
-            <pre><code class="cpp">zap::Vector operator*(const zap::Vector &amp;)</code></pre>
-            <pre><code class="cpp">double getEntry(int, int)</code></pre>
+            
+                <pre><code class="cpp">void CSRSparseMatrix(const zap::DOKSparseMatrix &amp;)</code></pre>
+            
+                <pre><code class="cpp">int nRows()</code></pre>
+            
+                <pre><code class="cpp">int nCols()</code></pre>
+            
+                <pre><code class="cpp">double getEntry(int, int)</code></pre>
+            
+                    <p><p>Return a view to the ith row in the matrix.</p></p>
+                
+                <pre><code class="cpp">zap::CSRSparseMatrix::Row row(int)</code></pre>
+            
+                    <p><p>Return the transpose of the original matrix.</p></p>
+                
+                <pre><code class="cpp">zap::CSRSparseMatrix transposed()</code></pre>
             
         </section>
 
@@ -50,15 +70,19 @@
                 <li><a href="GettingStarted.html">Getting Started</a></li>
             </ul>
         </section>
+
         <section>
             <h1>Classes</h1>
             <ul>
-                <li><a href="DimensionMismatchException.html">DimensionMismatchException<a></a></li>
-                <li><a href="DOKSparseMatrix.html">DOKSparseMatrix<a></a></li>
-                <li><a href="CSRSparseMatrix.html">CSRSparseMatrix<a></a></li>
-                <li><a href="CSRSparseMatrix/Row.html">CSRSparseMatrix::Row<a></a></li>
-                <li><a href="DenseMatrix.html">DenseMatrix<a></a></li>
-                <li><a href="Vector.html">Vector<a></a></li>
+                <li><a href="/zap/ndarray.html">ndarray<a></a></li>
+                <li><a href="/zap/Vector.html">Vector<a></a></li>
+                <li><a href="/zap/DOKSparseMatrix.html">DOKSparseMatrix<a></a></li>
+                <li><a href="/zap/CSRSparseMatrix.html">CSRSparseMatrix<a></a></li>
+                <li><a href="/zap/CSRSparseMatrix/Row.html">CSRSparseMatrix::Row<a></a></li>
+                <li><a href="/zap/CSRSparseMatrix/Row/iterator.html">CSRSparseMatrix::Row::iterator<a></a></li>
+                <li><a href="/zap/DimensionMismatchException.html">DimensionMismatchException<a></a></li>
+                <li><a href="/zap/AbstractMatrix.html">AbstractMatrix<a></a></li>
+                <li><a href="/zap/DenseMatrix.html">DenseMatrix<a></a></li>
                 
             </ul>
         </section>

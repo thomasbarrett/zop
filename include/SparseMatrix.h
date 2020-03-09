@@ -6,33 +6,33 @@
  *  \author Thomas Barrett 
  */
 
+
 #include <map>
 #include <cassert>
 #include <vector>
 #include <exception>
 
+#include <Matrix.h>
 #include <Vector.h>
 
 namespace zap {
 
-class DimensionMismatchException: public std::exception {
-public:
-    virtual const char* what() const throw() {
-        return "dimension mismatch";
-    }
-};
 
-class DOKSparseMatrix {
+class DOKSparseMatrix: public AbstractMatrix<DOKSparseMatrix>  {
 private:
     int nRows_ = 0;
     int nCols_ = 0;
     std::map<std::pair<int, int>, double> entries_;
 public:
+
+    using Builder = DOKSparseMatrix;
+   
+
     DOKSparseMatrix(int nRows, int nCols) {
         nRows_ = nRows;
         nCols_ = nCols;
     }
-    
+
     using const_iterator = decltype(entries_)::const_iterator;
 
     int nRows() const { return nRows_; }
@@ -41,15 +41,17 @@ public:
     DOKSparseMatrix transposed() const {
         DOKSparseMatrix res{nCols(), nRows()};
         for (auto &[loc, v]: entries_) {
-            res.addEntry(loc.second, loc.first, v);
+            res.setEntry(loc.second, loc.first, v);
         }
         return res;
     }
 
-    void addEntry(int i, int j, double v) {
+    void setEntry(int i, int j, double v) {
         assert(0 <= i && i < nRows_);
         assert(0 <= j && j < nCols_);
-        entries_.emplace(std::make_pair(i, j), v);
+        if (v != 0.0) {
+            entries_.emplace(std::make_pair(i, j), v);
+        }
     }
 
     double getEntry(int i, int j) {
@@ -82,7 +84,7 @@ public:
  * position of the column vector. The vector of row-start indices stores
  * the index of the first non-zero value in each row.
  */
-class CSRSparseMatrix {
+class CSRSparseMatrix: public AbstractMatrix<CSRSparseMatrix> {
 private:
     int nRows_ = 0;
     int nCols_ = 0;
@@ -90,53 +92,130 @@ private:
     std::vector<int> column_indices_;
     std::vector<int> row_indices_;
 
-    std::pair<int, int> getRowIndices(int i) const {
-        assert(i >= 0 && i < nRows());
-        if (i >= row_indices_.size()) {
-            return {values_.size(), values_.size()};
-        } else if (i == row_indices_.size() - 1) {
-            return {row_indices_[i], values_.size()};
-        } else {
-            return {row_indices_[i], row_indices_[i + 1]};
+public:
+
+    using Builder = DOKSparseMatrix;
+    
+    /**
+     * A convenience view to a single row in a CSRSparseMatrix.
+     * 
+     * Since a CSRSparseMatrix is row-oriented, many row operations are
+     * extremely efficient with respect to the number of non-zero entries.
+     * This convenience class encompasses the operations that can be 
+     * performed on a row.
+     */
+    class Row {
+    private:
+        int a_ = 0;
+        int b_ = 0;
+        const CSRSparseMatrix *mat_ = nullptr;
+
+        static int binary_search(const int *arr, int a, int b, int i) {
+            assert(b >= a);
+            if (b - a > 1) {  
+                int mid = (a + b) / 2;
+                if (arr[mid] == i) return mid;
+                if (arr[mid] > i) return binary_search(arr, a, mid, i);
+                return binary_search(arr, mid, b, i);         
+            } else {
+                if (arr[a] == i) return a;
+                else return -1;
+            }
         }
-    }
+        
+    public:
+        Row(int a, int b, const CSRSparseMatrix *mat): a_{a}, b_{b}, mat_{mat} {}
 
-    struct Row {
-        int count;
-        const double* values;
-        const int* indices;
+        struct iterator {
+            int i = 0;
+            const Row *row;
+            void operator++() {i++; }
+            bool operator!=(const iterator &it) const { return i != it.i; }
+            std::pair<int, double> operator*() const {
+                return {row->indices(i), row->values(i)};
+            }
+        };
 
-        static double dot(const Row &A, const Row &B) {\
+        double values(int i) const {
+            return mat_->values_[a_ + i]; 
+        }
+
+        int indices(int i) const {
+            return mat_->column_indices_[a_ + i]; 
+        }
+
+        int count() const {
+            return b_ - a_;
+        }
+
+        /**
+         * Returns the value at the ith column. If there is no non-zero entry
+         * in that column, then 0.0 is returned.
+         * 
+         * Note that this is a O(log(N)) operation, and thus should only be
+         * used when absolutely necessary. For example, if no sparse optimized
+         * implementation is defined for a certain operation, this allows the
+         * dense algorithm to be used.
+         */
+        double operator[](int i) {
+            if (a_ == b_) return 0.0;
+            int j = binary_search(mat_->column_indices_.data(), a_, b_, i);
+            if (j == -1) return 0.0;
+            else return mat_->values_[j];
+        }
+
+        /**
+         * Return an iterator to the start of the row.
+         */
+        const iterator begin() const {
+            return {0, this};
+        }
+
+        /**
+         * Return an iterator to the end of the row.
+         */
+        const iterator end() const {
+            return {count(), this};
+        }
+
+        /**
+         * Return the dot product between two sparse rows.
+         * 
+         * This operation is sparse optimized and runs in O(N) with respect
+         * to the number of non-zero elements in the rows.
+         */
+        static double dot(const Row &A, const Row &B) {
             double acc = 0;
-            int j = 0;
-            for (int i = 0; i < A.count; i++) {
-                while (A.indices[i] > B.indices[j] && j < B.count) j += 1;
-                if (A.indices[i] == B.indices[j]) {
-                    acc += A.values[i] * B.values[j];
+            int idx = 0;
+            for (auto [i, e]: A) {
+                while (i > B.indices(idx) && idx < B.count()) {
+                    idx += 1;
+                }
+                if (i == B.indices(idx)) {
+                    acc += e * B.values(idx);
                 }
             }
             return acc;
         }
 
-        static double dot(const Row &A, const Vector &B) {\
+        /**
+         * Return the dot product between a sparse row and a dense vector.
+         * 
+         * This operation is sparse optimized and runs in O(N) with respect
+         * to the number of non-zero elements in the row.
+         */
+        static double dot(const Row &A, const Vector &B) {
             double acc = 0;
-            for (int i = 0; i < A.count; i++) {
-                acc += A.values[i] * B[A.indices[i]];
+            for (auto [i, e]: A) {
+                acc += e * B[i];
             }
             return acc;
         }
 
     };
 
-
-    Row row(int i) const {
-        auto [a, b] = getRowIndices(i);
-        return {b - a, &values_[a], &column_indices_[a]};
-    }
-
-public:
-    CSRSparseMatrix(int nRows, int nCols): nRows_{nRows}, nCols_{nCols} {};
     CSRSparseMatrix(const DOKSparseMatrix &M) {
+        row_indices_.resize(M.nRows() + 1);
         nRows_ = M.nRows();
         nCols_ = M.nCols();
         int row = -1;
@@ -146,67 +225,44 @@ public:
             values_.push_back(val);
             column_indices_.push_back(j);
             while (row != i) {
-                row_indices_.push_back(a);
                 row += 1;
+                row_indices_[row]= a;
             }
             a += 1;
         }
+
+        for (int r = row + 1; r <= M.nRows(); r++) {
+            row_indices_[r] = a;
+        }
     };
+
 
     int nRows() const { return nRows_; }
     int nCols() const { return nCols_; }
+    double getEntry(int i, int j) const { return row(i)[j]; }
 
+    /**
+     * Return a view to the ith row in the matrix. 
+     */
+    Row row(int i) const {
+        int a = row_indices_[i];
+        int b = row_indices_[i + 1];
+        return {a, b, this};
+    }
+
+    /**
+     * Return the transpose of the original matrix.
+     */
     CSRSparseMatrix transposed() const {
         DOKSparseMatrix mat{nCols(), nRows()};
         for (int i = 0; i < nRows(); i++) {
-            auto [a, b] = getRowIndices(i);
-            while (a < b) {
-                int j = column_indices_[a];
-                double v = values_[a];
-                mat.addEntry(j, i, v);
-                a += 1;
+            for (auto [j, e]: row(i)) {
+                mat.setEntry(j, i, e);
             }
         }
         return CSRSparseMatrix(mat);
-    }
-
-    Vector operator*(const Vector &v) {
-        if (v.dim() != nCols()) throw DimensionMismatchException{};
-        Vector res(v.dim());
-        for (int i = 0; i < nRows(); i++) {
-           res[i] = Row::dot(row(i), v);
-        }
-        return res;
-    };
-
-    friend CSRSparseMatrix operator*(const CSRSparseMatrix &A, const CSRSparseMatrix &B) {
-        if (A.nCols() != B.nRows()) {
-            throw std::runtime_error("error: dimension mismatch");
-        }
-
-        CSRSparseMatrix B_T = B.transposed();
-        DOKSparseMatrix res{A.nRows(), B.nCols()};
-        for (int i = 0; i < A.nRows(); i++) {
-            for (int j = 0; j < B.nRows(); j++) {
-                double v = Row::dot(A.row(i), B.row(j));
-                if (v != 0) res.addEntry(i, j, v);
-            }
-        }
-        return CSRSparseMatrix(res);
-    }
-
-    double getEntry(int i, int j) {
-        assert(0 <= i && i < nRows_);
-        assert(0 <= j && j < nCols_);
-        auto [a, b] = getRowIndices(i);
-        while (a < b) {
-            int col = column_indices_[a];
-            if (j == col) return values_[a];
-            a += 1;
-        }
-        return 0.0;
-    }
-
+    } 
+    
 };
 
 }

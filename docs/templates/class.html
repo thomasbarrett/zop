@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../css/master.css">
-    <link rel="stylesheet" href="../css/highlight.css">
+    <link rel="stylesheet" href="/css/master.css">
+    <link rel="stylesheet" href="/css/highlight.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/cpp.min.js"></script>
     <script>
@@ -15,21 +15,26 @@
 </head>
 
 <body>
+
     <header>
         <h1><b>zop</b><i>a simple vector processing library</i></h1>
     </header>
 
-
     <main>
         <section>
-            <h1>{{ class_.displayname}}</h1>
-            <p>{{ class_.brief_comment }}</p>
+            <h1>{{ current_class.displayname }}</h1>
+            {% if current_class.comment is not none %}
+                {{ current_class.comment | markdown }}
+            {% endif %}
         </section>
 
         <section>
             <h2>Instance Methods</h2>
-            {% for method in class_.methods -%}
-                <pre><code class="cpp">{{ method.displayname }}</code></pre>
+            {% for method in current_class.methods -%}
+                {% if method.comment is not none %}
+                    <p>{{ method.comment | markdown }}</p>
+                {% endif %}
+                <pre><code class="cpp">{{ method.displayname | escape }}</code></pre>
             {% endfor %}
         </section>
 
@@ -43,11 +48,12 @@
                 <li><a href="GettingStarted.html">Getting Started</a></li>
             </ul>
         </section>
+
         <section>
             <h1>Classes</h1>
             <ul>
                 {% for link in links -%}
-                    <li><a href="{{link.href}}">{{link.spelling}}<a></a></li>
+                <li><a href="{{link.href}}">{{link.spelling}}<a></a></li>
                 {% endfor %}
             </ul>
         </section>

@@ -17,7 +17,7 @@ body {
 }
 
 main {
-    width: 600px;
+    width: 800px;
     margin: auto;
     padding: 0 24px;
 }
@@ -43,11 +43,11 @@ h2 {
     margin: 10px 0;
 }
 
-ul {
+nav ul {
     list-style: none;
 }
 
-li {
+nav li {
     padding: 12px 6px;
     border-bottom: 1px solid #F0F0F0
 }

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/master.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/cpp.min.js"></script>
+    <script>
+        hljs.initHighlightingOnLoad();
+    </script>
+</head>
+
+<body>
+
+    <header>
+        <h1><b>zop</b><i>a simple vector processing library</i></h1>
+    </header>
+
+    <main>
+        <section>
+            <h1>AbstractMatrix<Derived></h1>
+            
+                <p>AbstractMatrix contains an general implementation of many useful matrix
+operations. A subclass can override these methods with a more
+specialized implementation. In order for a subclass to utilize these
+methods, it must provide some combination of the following methods:</p>
+<ul>
+<li><code>Derived::Builder(nRows, nCols)</code></li>
+<li><code>Derived::Derived(const Derived::Builder &amp;)</code></li>
+<li><code>Derived::getEntry(int i, int j)</code></li>
+<li><code>Derived::setEntry(int i, int j, double e)</code></li>
+<li><code>Derived::nRows()</code></li>
+<li><code>Derived::nCols()</code></li>
+<li><code>Derived::row(int i)</code></li>
+<li><code>Derived::Row::dot(const Derived::Row&amp;, const Derived::Row&amp;)</code></li>
+</ul>
+<p>This base class follows the Curiously Recurring Template Pattern (CRTP).
+This design choice was made for a number of reasons. First of all,
+CRTP provides compile time polymorphism so that there is no overhead
+of virtual calls that would dramatically slow down matrix operations.
+Also, by virtue of the SFINAE principal, subclasses need not implement
+every method.</p>
+            
+        </section>
+
+        <section>
+            <h2>Instance Methods</h2>
+            
+                <pre><code class="cpp">Derived Identity(int, int)</code></pre>
+            
+                <pre><code class="cpp">Derived AffineScale(double)</code></pre>
+            
+                <pre><code class="cpp">Derived AffineTranslation(double, double, double)</code></pre>
+            
+                <pre><code class="cpp">Derived AffineRotationX(double)</code></pre>
+            
+                <pre><code class="cpp">Derived AffineRotationY(double)</code></pre>
+            
+                <pre><code class="cpp">Derived AffineRotationZ(double)</code></pre>
+            
+                <pre><code class="cpp">bool isSymmetric()</code></pre>
+            
+                <pre><code class="cpp">bool isLowerTriangular()</code></pre>
+            
+                <pre><code class="cpp">bool isUpperTriangular()</code></pre>
+            
+                <pre><code class="cpp">Derived cholesky()</code></pre>
+            
+                <pre><code class="cpp">std::pair&lt;Derived, Derived&gt; LU()</code></pre>
+            
+                <pre><code class="cpp">zap::Vector operator*(const zap::Vector &amp;)</code></pre>
+            
+                <pre><code class="cpp">Derived operator*(const Derived &amp;)</code></pre>
+            
+                <pre><code class="cpp">Derived operator+(const Derived &amp;)</code></pre>
+            
+                <pre><code class="cpp">Derived operator-(const Derived &amp;)</code></pre>
+            
+        </section>
+
+    </main>
+
+    <nav>
+        <section>
+            <h1>Tutorials</h1>
+            <ul>
+                <li><a href="Installation.html">Installation</a></li>
+                <li><a href="GettingStarted.html">Getting Started</a></li>
+            </ul>
+        </section>
+
+        <section>
+            <h1>Classes</h1>
+            <ul>
+                <li><a href="/zap/ndarray.html">ndarray<a></a></li>
+                <li><a href="/zap/Vector.html">Vector<a></a></li>
+                <li><a href="/zap/DOKSparseMatrix.html">DOKSparseMatrix<a></a></li>
+                <li><a href="/zap/CSRSparseMatrix.html">CSRSparseMatrix<a></a></li>
+                <li><a href="/zap/CSRSparseMatrix/Row.html">CSRSparseMatrix::Row<a></a></li>
+                <li><a href="/zap/CSRSparseMatrix/Row/iterator.html">CSRSparseMatrix::Row::iterator<a></a></li>
+                <li><a href="/zap/DimensionMismatchException.html">DimensionMismatchException<a></a></li>
+                <li><a href="/zap/AbstractMatrix.html">AbstractMatrix<a></a></li>
+                <li><a href="/zap/DenseMatrix.html">DenseMatrix<a></a></li>
+                
+            </ul>
+        </section>
+    </nav>
+</body>
+
+</html>

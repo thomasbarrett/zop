@@ -13,7 +13,7 @@ DOKSparseMatrix RandomDOKSparseMatrixFromSeed(int M, int N, double sparsity, int
         int i = std::rand() % M;
         int j = std::rand() % N;
         double v =  (double) std::rand() / RAND_MAX - 0.5;
-        mat.addEntry(i, j, v);
+        mat.setEntry(i, j, v);
     }
     return mat;
 }
@@ -34,14 +34,14 @@ TEST(DOKSparseMatrix, Constructor) {
     }
 }
 
-TEST(DOKSparseMatrix, addEntry) {
+TEST(DOKSparseMatrix, setEntry) {
     int N = 3;
     int M = 5;
 
     DOKSparseMatrix A{N, M};
-    A.addEntry(0, 0, 2.0);
-    A.addEntry(0, 4, 3.0);
-    A.addEntry(2, 2, 4.0);
+    A.setEntry(0, 0, 2.0);
+    A.setEntry(0, 4, 3.0);
+    A.setEntry(2, 2, 4.0);
 
     ASSERT_EQ(A.getEntry(0, 0), 2.0);
     ASSERT_EQ(A.getEntry(0, 4), 3.0);
@@ -64,9 +64,9 @@ TEST(DOKSparseMatrix, transposed) {
 
 TEST(CSRSparseMatrix, CSRSparseMatrix) {
     DOKSparseMatrix A{3, 3};
-    A.addEntry(0, 0, 2.0);
-    A.addEntry(1, 1, 2.0);
-    A.addEntry(2, 2, 2.0);
+    A.setEntry(0, 0, 2.0);
+    A.setEntry(1, 1, 2.0);
+    A.setEntry(2, 2, 2.0);
 
     CSRSparseMatrix B{A};
     ASSERT_EQ(B.nRows(), 3);
@@ -79,9 +79,9 @@ TEST(CSRSparseMatrix, CSRSparseMatrix) {
 
 TEST(CSRSparseMatrix, multiply) {
     DOKSparseMatrix A{3, 3};
-    A.addEntry(0, 0, 2.0);
-    A.addEntry(1, 1, 2.0);
-    A.addEntry(2, 2, 2.0);
+    A.setEntry(0, 0, 2.0);
+    A.setEntry(1, 1, 2.0);
+    A.setEntry(2, 2, 2.0);
 
     CSRSparseMatrix B{A};
     Vector v {1, 2, 3};
@@ -91,8 +91,8 @@ TEST(CSRSparseMatrix, multiply) {
 }
 
 TEST(CSRSparseMatrix, transposed) {
-    int N = 3;
-    int M = 5;
+    int N = 4;
+    int M = 4;
 
     DOKSparseMatrix A = RandomDOKSparseMatrixFromSeed(M, N, 0.2, 42);
     CSRSparseMatrix B(A);
@@ -103,4 +103,112 @@ TEST(CSRSparseMatrix, transposed) {
             ASSERT_EQ(B.getEntry(i, j), B_T.getEntry(j, i));
         }
     }
+}
+
+TEST(CSRSparseMatrix, isSymmetric) {
+
+    DOKSparseMatrix B{3, 3};
+    B.setEntry(0, 0, 4.0);
+    B.setEntry(0, 1, 12.0);
+    B.setEntry(0, 2, -16.0);
+    B.setEntry(1, 1, 37.0);
+    B.setEntry(1, 2, -43.0);
+    B.setEntry(2, 2, 98.0);
+
+    ASSERT_TRUE(!CSRSparseMatrix(B).isSymmetric());
+
+}
+
+TEST(CSRSparseMatrix, isLowerTriangular) {
+    
+    DOKSparseMatrix A{3, 3};
+    A.setEntry(0, 0, 4.0);
+    A.setEntry(0, 1, 12.0);
+    A.setEntry(0, 2, -16.0);
+    A.setEntry(1, 0, 12.0);
+    A.setEntry(1, 1, 37.0);
+    A.setEntry(1, 2, -43.0);
+    A.setEntry(2, 0, -16.0);
+    A.setEntry(2, 1, -43.0);
+    A.setEntry(2, 2, 98.0);
+
+    ASSERT_TRUE(!CSRSparseMatrix(A).isLowerTriangular());
+
+    DOKSparseMatrix B{3, 3};
+    B.setEntry(0, 0, 2.0);
+    B.setEntry(1, 0, 6.0);
+    B.setEntry(1, 1, 1.0);
+    B.setEntry(2, 0, -8.0);
+    B.setEntry(2, 1, 5.0);
+    B.setEntry(2, 2, 3.0);
+
+    ASSERT_TRUE(CSRSparseMatrix(B).isLowerTriangular());
+    ASSERT_TRUE(!CSRSparseMatrix(B).isUpperTriangular());
+}
+
+TEST(CSRSparseMatrix, isUpperTriangular) {
+   
+    DOKSparseMatrix A{3, 3};
+    A.setEntry(0, 0, 4.0);
+    A.setEntry(0, 1, 12.0);
+    A.setEntry(0, 2, -16.0);
+    A.setEntry(1, 0, 12.0);
+    A.setEntry(1, 1, 37.0);
+    A.setEntry(1, 2, -43.0);
+    A.setEntry(2, 0, -16.0);
+    A.setEntry(2, 1, -43.0);
+    A.setEntry(2, 2, 98.0);
+
+    ASSERT_TRUE(!CSRSparseMatrix(A).isUpperTriangular());
+
+    DOKSparseMatrix B{3, 3};
+    B.setEntry(0, 0, -8.0);
+    B.setEntry(0, 1, 5.0);
+    B.setEntry(0, 2, 3.0);
+    B.setEntry(1, 1, 6.0);
+    B.setEntry(1, 2, 1.0);
+    B.setEntry(2, 2, 2.0);
+
+    ASSERT_TRUE(!CSRSparseMatrix(B).isLowerTriangular());
+    ASSERT_TRUE(CSRSparseMatrix(B).isUpperTriangular());
+
+}
+
+TEST(CSRSparseMatrix, Cholesky) {
+
+    DOKSparseMatrix A{3, 3};
+    A.setEntry(0, 0, 4.0);
+    A.setEntry(0, 1, 12.0);
+    A.setEntry(0, 2, -16.0);
+    A.setEntry(1, 0, 12.0);
+    A.setEntry(1, 1, 37.0);
+    A.setEntry(1, 2, -43.0);
+    A.setEntry(2, 0, -16.0);
+    A.setEntry(2, 1, -43.0);
+    A.setEntry(2, 2, 98.0);
+
+    const CSRSparseMatrix L = CSRSparseMatrix(A).cholesky();
+    ASSERT_TRUE(L.isLowerTriangular());
+
+    ASSERT_EQ(CSRSparseMatrix(A), L.AbstractMatrix<CSRSparseMatrix>::operator*(L.transposed()));
+
+    DOKSparseMatrix B{3, 3};
+    B.setEntry(0, 0, 4.0);
+    B.setEntry(0, 1, 12.0);
+    B.setEntry(0, 2, -16.0);
+    B.setEntry(1, 1, 37.0);
+    B.setEntry(1, 2, -43.0);
+    B.setEntry(2, 2, 98.0);
+
+    ASSERT_ANY_THROW(CSRSparseMatrix(B).cholesky());
+
+    // non-semi-postive-definite matrix
+
+    DOKSparseMatrix C{3, 3};
+    C.setEntry(0, 0, -4.0);
+    C.setEntry(1, 1, 37.0);
+    C.setEntry(2, 2, 98.0);
+
+    ASSERT_ANY_THROW(CSRSparseMatrix(C).cholesky());
+
 }

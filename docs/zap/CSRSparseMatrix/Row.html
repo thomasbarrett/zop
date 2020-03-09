@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../css/master.css">
-    <link rel="stylesheet" href="../css/highlight.css">
+    <link rel="stylesheet" href="/css/master.css">
+    <link rel="stylesheet" href="/css/highlight.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/cpp.min.js"></script>
     <script>
@@ -15,21 +15,64 @@
 </head>
 
 <body>
+
     <header>
         <h1><b>zop</b><i>a simple vector processing library</i></h1>
     </header>
 
-
     <main>
         <section>
             <h1>Row</h1>
-            <p>None</p>
+            
+                <p>A convenience view to a single row in a CSRSparseMatrix.</p>
+<p>Since a CSRSparseMatrix is row-oriented, many row operations are
+extremely efficient with respect to the number of non-zero entries.
+This convenience class encompasses the operations that can be
+performed on a row.</p>
+            
         </section>
 
         <section>
             <h2>Instance Methods</h2>
-            <pre><code class="cpp">double dot(const zap::CSRSparseMatrix::Row &amp;, const zap::CSRSparseMatrix::Row &amp;)</code></pre>
-            <pre><code class="cpp">double dot(const zap::CSRSparseMatrix::Row &amp;, const zap::Vector &amp;)</code></pre>
+            
+                <pre><code class="cpp">int binary_search(const int *, int, int, int)</code></pre>
+            
+                <pre><code class="cpp">void Row(int, int, const zap::CSRSparseMatrix *)</code></pre>
+            
+                <pre><code class="cpp">double values(int)</code></pre>
+            
+                <pre><code class="cpp">int indices(int)</code></pre>
+            
+                <pre><code class="cpp">int count()</code></pre>
+            
+                    <p><p>Returns the value at the ith column. If there is no non-zero entry
+in that column, then 0.0 is returned.</p>
+<p>Note that this is a O(log(N)) operation, and thus should only be
+used when absolutely necessary. For example, if no sparse optimized
+implementation is defined for a certain operation, this allows the
+dense algorithm to be used.</p></p>
+                
+                <pre><code class="cpp">double operator[](int)</code></pre>
+            
+                    <p><p>Return an iterator to the start of the row.</p></p>
+                
+                <pre><code class="cpp">const zap::CSRSparseMatrix::Row::iterator begin()</code></pre>
+            
+                    <p><p>Return an iterator to the end of the row.</p></p>
+                
+                <pre><code class="cpp">const zap::CSRSparseMatrix::Row::iterator end()</code></pre>
+            
+                    <p><p>Return the dot product between two sparse rows.</p>
+<p>This operation is sparse optimized and runs in O(N) with respect
+to the number of non-zero elements in the rows.</p></p>
+                
+                <pre><code class="cpp">double dot(const zap::CSRSparseMatrix::Row &amp;, const zap::CSRSparseMatrix::Row &amp;)</code></pre>
+            
+                    <p><p>Return the dot product between a sparse row and a dense vector.</p>
+<p>This operation is sparse optimized and runs in O(N) with respect
+to the number of non-zero elements in the row.</p></p>
+                
+                <pre><code class="cpp">double dot(const zap::CSRSparseMatrix::Row &amp;, const zap::Vector &amp;)</code></pre>
             
         </section>
 
@@ -43,15 +86,19 @@
                 <li><a href="GettingStarted.html">Getting Started</a></li>
             </ul>
         </section>
+
         <section>
             <h1>Classes</h1>
             <ul>
-                <li><a href="DimensionMismatchException.html">DimensionMismatchException<a></a></li>
-                <li><a href="DOKSparseMatrix.html">DOKSparseMatrix<a></a></li>
-                <li><a href="CSRSparseMatrix.html">CSRSparseMatrix<a></a></li>
-                <li><a href="CSRSparseMatrix/Row.html">CSRSparseMatrix::Row<a></a></li>
-                <li><a href="DenseMatrix.html">DenseMatrix<a></a></li>
-                <li><a href="Vector.html">Vector<a></a></li>
+                <li><a href="/zap/ndarray.html">ndarray<a></a></li>
+                <li><a href="/zap/Vector.html">Vector<a></a></li>
+                <li><a href="/zap/DOKSparseMatrix.html">DOKSparseMatrix<a></a></li>
+                <li><a href="/zap/CSRSparseMatrix.html">CSRSparseMatrix<a></a></li>
+                <li><a href="/zap/CSRSparseMatrix/Row.html">CSRSparseMatrix::Row<a></a></li>
+                <li><a href="/zap/CSRSparseMatrix/Row/iterator.html">CSRSparseMatrix::Row::iterator<a></a></li>
+                <li><a href="/zap/DimensionMismatchException.html">DimensionMismatchException<a></a></li>
+                <li><a href="/zap/AbstractMatrix.html">AbstractMatrix<a></a></li>
+                <li><a href="/zap/DenseMatrix.html">DenseMatrix<a></a></li>
                 
             </ul>
         </section>
