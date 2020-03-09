@@ -17,7 +17,14 @@
 
 namespace zop {
 
-
+/**
+ * This class implements a dictionary-of-keys sparse matrix. Generally, this
+ * class should only be used to build more optimized sparse matrix
+ * representations. By storing all entries in a tree-map, the DOKSparseMatrix
+ * is highly optimized to add, modify, and remove entires. However, matrix
+ * multiplication with this class will be much slower than with alternative
+ * implementations such as a CSRSparseMatrix.
+ */
 class DOKSparseMatrix: public AbstractMatrix<DOKSparseMatrix>  {
 private:
     int nRows_ = 0;
@@ -26,14 +33,12 @@ private:
 public:
 
     using Builder = DOKSparseMatrix;
-   
+    using const_iterator = decltype(entries_)::const_iterator;
 
     DOKSparseMatrix(int nRows, int nCols) {
         nRows_ = nRows;
         nCols_ = nCols;
     }
-
-    using const_iterator = decltype(entries_)::const_iterator;
 
     int nRows() const { return nRows_; }
     int nCols() const { return nCols_; }
@@ -124,6 +129,7 @@ public:
         }
         
     public:
+    
         Row(int a, int b, const CSRSparseMatrix *mat): a_{a}, b_{b}, mat_{mat} {}
 
         struct iterator {
