@@ -24,7 +24,6 @@ TEST(VectorTest,Add) {
     }
 }
 
-
 TEST(VectorTest, Subtract) {
     Vector v(5);
     Vector w(5);

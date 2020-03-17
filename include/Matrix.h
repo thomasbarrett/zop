@@ -191,35 +191,38 @@ public:
             throw std::runtime_error("matrix must be square");
         }
 
-        typename Derived::Builder l{N, N};
-        typename Derived::Builder u{N, N};
+        typename Derived::Builder lower{N, N};
+        typename Derived::Builder upper{N, N};
         
-        int i = 0, j = 0, k = 0;
-        for (i = 0; i < N; i++) {
-            for (j = 0; j < N; j++) {
-                if (j < i)
-                    l.setEntry(j, i, 0.0);
-                else {
-                    l.setEntry(j, i, self->getEntry(j, i));
-                    for (k = 0; k < i; k++) {
-                        l.setEntry(j, i, l.getEntry(j, i) - l.getEntry(j, k) * u.getEntry(k, i));
-                    }
+        for (int i = 0; i < N; i++) { 
+  
+            // Upper Triangular 
+            for (int k = i; k < N; k++) { 
+    
+                double sum = 0; 
+                for (int j = 0; j < i; j++) 
+                    sum += lower.getEntry(i, j) * upper.getEntry(j, k); 
+    
+                upper.setEntry(i, k, self->getEntry(i, k) - sum);
+            } 
+    
+            // Lower Triangular 
+            for (int k = i; k < N; k++) { 
+                if (i == k) 
+                    lower.setEntry(i, i, 1.0); // Diagonal as 1 
+                else { 
+    
+                    double sum = 0; 
+                    for (int j = 0; j < i; j++) 
+                        sum += lower.getEntry(k, j) * upper.getEntry(j, i); 
+
+                    assert(upper.getEntry(i, i) != 0.0);
+                    lower.setEntry(k, i, (self->getEntry(k, i) - sum) / upper.getEntry(i, i)); 
                 }
-            }
-            for (j = 0; j < N; j++) {
-                if (j < i)
-                    u.setEntry(i, j, 0.0);
-                else if (j == i)
-                    u.setEntry(i, j, 1.0);
-                else {
-                    u.setEntry(i, j, self->getEntry(i, j) / l.getEntry(i, i));
-                    for (k = 0; k < i; k++) {
-                        u.setEntry(i, j, u.getEntry(i, j) - ((l.getEntry(i, k) * u.getEntry(k, j)) / l.getEntry(i, i)));
-                    }
-                }
-            }
-        }
-        return {Derived(std::move(l)), Derived(std::move(u))};
+            } 
+        } 
+
+        return {Derived(std::move(lower)), Derived(std::move(upper))};
     }
 
     Vector operator*(const Vector &v) const {

@@ -59,7 +59,7 @@ public:
         }
     }
 
-    double getEntry(int i, int j) {
+    double getEntry(int i, int j) const {
         assert(0 <= i && i < nRows_);
         assert(0 <= j && j < nCols_);
         auto it = entries_.find({i, j});
@@ -274,6 +274,17 @@ public:
         }
         return CSRSparseMatrix(mat);
     } 
+
+    friend std::ostream& operator<<(std::ostream& str, const CSRSparseMatrix &mat) {
+        str << "[";
+        for (int i = 0; i < mat.nRows(); i++) {
+            for (auto [j, e]: mat.row(i)) {
+                str << "{" << i << ", " << j << ", " << e << "}" << std::endl;
+            }
+        }
+        str << "]";
+        return str;
+    }
     
 };
 

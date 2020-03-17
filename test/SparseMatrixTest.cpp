@@ -1,6 +1,7 @@
 #include "gtest/gtest.h"
 
 #include <SparseMatrix.h>
+#include <Random.h>
 
 using namespace zop;
 
@@ -86,8 +87,17 @@ TEST(CSRSparseMatrix, multiply) {
     CSRSparseMatrix B{A};
     Vector v {1, 2, 3};
     Vector w = B * v;
-
     ASSERT_EQ(w, (Vector{2.0, 4.0, 6.0}));
+
+
+    DOKSparseMatrix C =  RandomDOKSparseMatrixFromSeed(1000, 1000, 0.001, 69);
+    CSRSparseMatrix D{C};
+    Vector x(1000);
+    for (int i = 0; i < 1000; i++) {
+        x[i] = 1.0;
+    }
+
+    ASSERT_NO_THROW(D * x);
 }
 
 TEST(CSRSparseMatrix, transposed) {
@@ -159,7 +169,7 @@ TEST(CSRSparseMatrix, isUpperTriangular) {
     A.setEntry(2, 1, -43.0);
     A.setEntry(2, 2, 98.0);
 
-    ASSERT_TRUE(!CSRSparseMatrix(A).isUpperTriangular());
+    ASSERT_TRUE(!A.isUpperTriangular());
 
     DOKSparseMatrix B{3, 3};
     B.setEntry(0, 0, -8.0);
@@ -212,3 +222,19 @@ TEST(CSRSparseMatrix, Cholesky) {
     ASSERT_ANY_THROW(CSRSparseMatrix(C).cholesky());
 
 }
+
+TEST(CSRSparseMatrix, LU) {
+    
+    DOKSparseMatrix L1 = random::DOKSparseLowerTriangular(10, 10, 1.0, 42);
+    CSRSparseMatrix L2{L1};
+
+    DOKSparseMatrix U1 = random::DOKSparseUpperTriangular(10, 10, 1.0, 38);
+    CSRSparseMatrix U2{U1};
+
+    CSRSparseMatrix A = L2 * U2;
+    const auto [L, U] = A.LU();    
+    
+    ASSERT_EQ(L2, L);
+    ASSERT_EQ(U2, U);
+}
+
